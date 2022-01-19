@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -64,6 +64,8 @@ const Section = ({children, title}) => {
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
+  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -80,8 +82,7 @@ const App = () => {
   // };
 
   useEffect(() => {
-    const json = ajax.fetchInitialDeals();
-    console.log(json);
+    ajax.fetchInitialDeals();
   }, []);
 
   return (
