@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -26,32 +26,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import ajax from './src/ajax';
-
-const Section = ({children, title}) => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+import DealsList from './src/components/DealList';
 
 // class App extends React.Component {
 //   componentDidMount() {
@@ -64,6 +39,8 @@ const Section = ({children, title}) => {
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
+  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -81,16 +58,28 @@ const App = () => {
 
   useEffect(() => {
     const json = ajax.fetchInitialDeals();
-    console.log(json);
+    // console.log(json);
+    setData(json);
   }, []);
 
   return (
-    <SafeAreaView style={backgroundStyle}>
+    <SafeAreaView style={styles.sectionContainer}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <View
         style={{
           backgroundColor: isDarkMode ? Colors.black : Colors.white,
-        }}></View>
+        }}>
+        {data.length > 0 ? (
+          <DealsList />
+        ) : (
+          <Text
+            style={{
+              fontSize: 30,
+            }}>
+            No Deals Yet...
+          </Text>
+        )}
+      </View>
     </SafeAreaView>
   );
 };
@@ -99,6 +88,9 @@ const styles = StyleSheet.create({
   sectionContainer: {
     marginTop: 32,
     paddingHorizontal: 24,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   sectionTitle: {
     fontSize: 24,
