@@ -12,7 +12,7 @@ import {
 const DealsList = () => {
   return (
     <View>
-      <Text>Deals</Text>
+      <Text styles={{fontSize: 20, fontWeight: '600'}}>Deals</Text>
     </View>
   );
 };

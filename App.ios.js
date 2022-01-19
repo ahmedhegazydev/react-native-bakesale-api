@@ -15,6 +15,7 @@ import {
   Text,
   useColorScheme,
   View,
+  FlatList,
 } from 'react-native';
 
 import {
@@ -59,25 +60,46 @@ const App = () => {
   useEffect(() => {
     const json = ajax.fetchInitialDeals();
     // console.log(json);
-    setData(json);
+    // setData(json);
+
+    fetch('https://bakesaleforgood.com/api/deals')
+      .then(response => response.json())
+      .then(json => setData(json))
+      .catch(error => console.error(error))
+      .finally(() => setLoading(false));
   }, []);
 
   return (
     <SafeAreaView style={styles.sectionContainer}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <View
-        style={{
-          backgroundColor: isDarkMode ? Colors.black : Colors.white,
-        }}>
-        {data.length > 0 ? (
-          <DealsList />
+      <View style={{flex: 1, padding: 24}}>
+        {isLoading ? (
+          <Text>Loading...</Text>
         ) : (
-          <Text
+          <View
             style={{
-              fontSize: 30,
+              flex: 1,
+              flexDirection: 'column',
+              justifyContent: 'space-between',
             }}>
-            No Deals Yet...
-          </Text>
+            <Text style={{fontSize: 18, color: 'green', textAlign: 'center'}}>
+              {data.title}
+            </Text>
+            <Text
+              style={{
+                fontSize: 14,
+                color: 'green',
+                textAlign: 'center',
+                paddingBottom: 10,
+              }}>
+              Articles:
+            </Text>
+            <FlatList
+              data={data}
+              keyExtractor={({id}, index) => id}
+              renderItem={({item}) => <Text>{item.title}</Text>}
+            />
+          </View>
         )}
       </View>
     </SafeAreaView>

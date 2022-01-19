@@ -1,5 +1,6 @@
 const apiHost = 'https://bakesaleforgood.com';
 import React from 'react';
+import {ActivityIndicator, FlatList, Text, View} from 'react-native';
 
 export default {
   fetchInitialDeals: async () => {
@@ -20,6 +21,8 @@ export default {
       return json;
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   },
 };
