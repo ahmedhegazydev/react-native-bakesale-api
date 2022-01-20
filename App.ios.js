@@ -26,11 +26,13 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import ajax from './src/ajax';
 import DealsList from './src/components/DealList';
 import DealsListItem from './src/components/DealListItem';
 import NetInfo from '@react-native-community/netinfo';
+import DealDetails from './src/components/DealMoreDetails';
 // import {NetInfo} from 'react-native';
 
 // class App extends React.Component {
@@ -42,10 +44,72 @@ import NetInfo from '@react-native-community/netinfo';
 //   }
 // }
 
-const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+const Stack = createNativeStackNavigator();
+const AllDealsScreen = ({navigation}) => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const json = ajax.fetchInitialDeals();
+    // console.log(json);
+    // setData(json);
+    fetch('https://bakesaleforgood.com/api/deals')
+      .then(response => response.json())
+      .then(json => setData(json))
+      .catch(error => console.error(error))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const onDealItemClick = () => {
+    // console.log('on item clicking');
+    navigation.navigate('Details');
+  };
+
+  return (
+    <View style={{flex: 1, padding: 10}}>
+      {isLoading ? (
+        // <Text>Loading...</Text>
+        <ActivityIndicator />
+      ) : (
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+          }}>
+          <Text style={{fontSize: 18, color: 'green', textAlign: 'center'}}>
+            {data.title}
+          </Text>
+          {/* <Text
+        style={{
+          fontSize: 14,
+          color: 'green',
+          textAlign: 'center',
+          paddingBottom: 10,
+        }}>
+        Articles:
+      </Text> */}
+          <FlatList
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+            data={data}
+            keyExtractor={({id}, index) => id}
+            renderItem={({item}) => (
+              // <Text>{item.title}</Text>
+              <DealsListItem
+                onDealItemClick={onDealItemClick}
+                dealItem={item}
+              />
+            )}
+          />
+        </View>
+      )}
+    </View>
+  );
+};
+
+const App = () => {
+  const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -62,17 +126,6 @@ const App = () => {
   // };
 
   useEffect(() => {
-    const json = ajax.fetchInitialDeals();
-    // console.log(json);
-    // setData(json);
-    fetch('https://bakesaleforgood.com/api/deals')
-      .then(response => response.json())
-      .then(json => setData(json))
-      .catch(error => console.error(error))
-      .finally(() => setLoading(false));
-  }, []);
-
-  useEffect(() => {
     // Subscribe
     const unsubscribe = NetInfo.addEventListener(state => {
       console.log('Connection type', state.type);
@@ -87,45 +140,12 @@ const App = () => {
   }, []);
 
   return (
-    <SafeAreaView style={styles.sectionContainer}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <View style={{flex: 1, padding: 0}}>
-        {isLoading ? (
-          // <Text>Loading...</Text>
-          <ActivityIndicator />
-        ) : (
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-            }}>
-            <Text style={{fontSize: 18, color: 'green', textAlign: 'center'}}>
-              {data.title}
-            </Text>
-            {/* <Text
-              style={{
-                fontSize: 14,
-                color: 'green',
-                textAlign: 'center',
-                paddingBottom: 10,
-              }}>
-              Articles:
-            </Text> */}
-            <FlatList
-              showsHorizontalScrollIndicator={false}
-              showsVerticalScrollIndicator={false}
-              data={data}
-              keyExtractor={({id}, index) => id}
-              renderItem={({item}) => (
-                // <Text>{item.title}</Text>
-                <DealsListItem dealItem={item} />
-              )}
-            />
-          </View>
-        )}
-      </View>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Bakesale Deals" component={AllDealsScreen} />
+        <Stack.Screen name="Details" component={DealDetails} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 

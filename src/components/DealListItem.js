@@ -20,7 +20,8 @@ const DealsListItem = props => {
   const deal = props.dealItem;
 
   const onItemClick = () => {
-    console.log('on item clicking');
+    //console.log('on item clicking');
+    props.onDealItemClick();
   };
 
   return (
