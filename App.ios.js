@@ -5,7 +5,6 @@
  * @format
  * @flow strict-local
  */
-
 import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
@@ -16,6 +15,7 @@ import {
   useColorScheme,
   View,
   FlatList,
+  ActivityIndicator,
 } from 'react-native';
 
 import {
@@ -28,6 +28,9 @@ import {
 
 import ajax from './src/ajax';
 import DealsList from './src/components/DealList';
+import DealsListItem from './src/components/DealListItem';
+import NetInfo from '@react-native-community/netinfo';
+// import {NetInfo} from 'react-native';
 
 // class App extends React.Component {
 //   componentDidMount() {
@@ -69,12 +72,27 @@ const App = () => {
       .finally(() => setLoading(false));
   }, []);
 
+  useEffect(() => {
+    // Subscribe
+    const unsubscribe = NetInfo.addEventListener(state => {
+      console.log('Connection type', state.type);
+      console.log('Is connected?', state.isConnected);
+    });
+    unsubscribe();
+
+    // NetInfo.fetch().then(state => {
+    //   console.log('Connection type', state.type);
+    //   console.log('Is connected?', state.isConnected);
+    // });
+  }, []);
+
   return (
     <SafeAreaView style={styles.sectionContainer}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <View style={{flex: 1, padding: 24}}>
+      <View style={{flex: 1, padding: 0}}>
         {isLoading ? (
-          <Text>Loading...</Text>
+          // <Text>Loading...</Text>
+          <ActivityIndicator />
         ) : (
           <View
             style={{
@@ -85,7 +103,7 @@ const App = () => {
             <Text style={{fontSize: 18, color: 'green', textAlign: 'center'}}>
               {data.title}
             </Text>
-            <Text
+            {/* <Text
               style={{
                 fontSize: 14,
                 color: 'green',
@@ -93,11 +111,14 @@ const App = () => {
                 paddingBottom: 10,
               }}>
               Articles:
-            </Text>
+            </Text> */}
             <FlatList
               data={data}
               keyExtractor={({id}, index) => id}
-              renderItem={({item}) => <Text>{item.title}</Text>}
+              renderItem={({item}) => (
+                // <Text>{item.title}</Text>
+                <DealsListItem dealItem={item} />
+              )}
             />
           </View>
         )}
