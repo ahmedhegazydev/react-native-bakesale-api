@@ -25,6 +25,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import {NavigationContainer} from '@react-navigation/native';
 
 import ajax from './src/ajax';
 import DealsList from './src/components/DealList';
@@ -64,7 +65,6 @@ const App = () => {
     const json = ajax.fetchInitialDeals();
     // console.log(json);
     // setData(json);
-
     fetch('https://bakesaleforgood.com/api/deals')
       .then(response => response.json())
       .then(json => setData(json))
@@ -113,6 +113,8 @@ const App = () => {
               Articles:
             </Text> */}
             <FlatList
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
               data={data}
               keyExtractor={({id}, index) => id}
               renderItem={({item}) => (
@@ -144,6 +146,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '400',
   },
+
   highlight: {
     fontWeight: '700',
   },

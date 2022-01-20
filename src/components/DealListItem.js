@@ -9,37 +9,48 @@ import {
   View,
   Image,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
+
+// import getPriceDisplay from './utils';
 
 const DealsListItem = props => {
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
-
   const deal = props.dealItem;
 
-  return (
-    <View style={styles.border}>
-      <Image
-        style={{width: windowWidth, height: 300}}
-        source={{
-          uri: deal.media[0],
-        }}
-      />
+  const onItemClick = () => {
+    console.log('on item clicking');
+  };
 
-      <Text style={{padding: 8, fontWeight: '600'}}>{deal.title}</Text>
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'row',
-          paddingLeft: 10,
-          paddingRight: 10,
-          paddingBottom: 10,
-          justifyContent: 'space-between',
-        }}>
-        <Text style={{padding: 0, fontWeight: '200'}}>{deal.cause.name}</Text>
-        <Text style={{padding: 0, fontWeight: '200'}}>{deal.price}</Text>
+  return (
+    <TouchableOpacity onPress={onItemClick}>
+      <View style={styles.border}>
+        <Image
+          style={{width: windowWidth, height: 300}}
+          source={{
+            uri: deal.media[0],
+          }}
+        />
+
+        <Text style={{padding: 8, fontWeight: '600'}}>{deal.title}</Text>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            paddingLeft: 10,
+            paddingRight: 10,
+            paddingBottom: 10,
+            justifyContent: 'space-between',
+          }}>
+          <Text style={{padding: 0, fontWeight: '200'}}>{deal.cause.name}</Text>
+          <Text style={{padding: 0, fontWeight: '200'}}>
+            {/* {getPriceDisplay(deal.price)} */}
+            {deal.price}
+          </Text>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
