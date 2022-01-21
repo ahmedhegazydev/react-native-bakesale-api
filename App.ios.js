@@ -33,6 +33,7 @@ import DealsList from './src/components/DealList';
 import DealsListItem from './src/components/DealListItem';
 import NetInfo from '@react-native-community/netinfo';
 import DealDetails from './src/components/DealMoreDetails';
+import SearchBarInput from './src/components/SearchBarInput';
 // import {NetInfo} from 'react-native';
 
 // class App extends React.Component {
@@ -49,10 +50,14 @@ const AllDealsScreen = ({navigation}) => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
+  const [searchTerm, onChangeText] = useState(null);
+  const [dataSearch, setDataSearch] = useState([]);
+
   useEffect(() => {
-    const json = ajax.fetchInitialDeals();
+    // const json = ajax.fetchInitialDeals();
     // console.log(json);
     // setData(json);
+
     fetch('https://bakesaleforgood.com/api/deals')
       .then(response => response.json())
       .then(json => setData(json))
@@ -60,13 +65,27 @@ const AllDealsScreen = ({navigation}) => {
       .finally(() => setLoading(false));
   }, []);
 
-  const onDealItemClick = () => {
+  // useEffect(() => {
+  //   fetch('https://bakesaleforgood.com/api/deals?searchTerm' + 'Yoga')
+  //     .then(response => response.json())
+  //     .then(json => setDataSearch(json))
+  //     .catch(error => console.error(error))
+  //     .finally(() => setLoading(false));
+  // }, []);
+
+  const onDealItemClick = ({deal}) => {
     // console.log('on item clicking');
-    navigation.navigate('Details');
+    // navigation.navigate('Details', {deal});
+    // let data = {deal: dealItem};
+    // console.log(deal.title);
+    navigation.push('Details', deal);
   };
 
   return (
-    <View style={{flex: 1, padding: 10}}>
+    <View
+      style={{flex: 1, marginTop: 15, padding: 10, flexDirection: 'column'}}>
+      {/* <SearchBarInput /> */}
+
       {isLoading ? (
         // <Text>Loading...</Text>
         <ActivityIndicator />
@@ -142,7 +161,11 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Bakesale Deals" component={AllDealsScreen} />
+        <Stack.Screen
+          options={{header: () => null}}
+          name="Bakesale Deals"
+          component={AllDealsScreen}
+        />
         <Stack.Screen name="Details" component={DealDetails} />
       </Stack.Navigator>
     </NavigationContainer>

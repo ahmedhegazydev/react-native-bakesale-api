@@ -4320,7 +4320,7 @@
   "resolved" "https://registry.npmjs.org/lodash.throttle/-/lodash.throttle-4.1.1.tgz"
   "version" "4.1.1"
 
-"lodash@^4.17.10", "lodash@^4.17.14", "lodash@^4.17.15", "lodash@^4.17.19", "lodash@^4.7.0":
+"lodash@^4.17.10", "lodash@^4.17.11", "lodash@^4.17.14", "lodash@^4.17.15", "lodash@^4.17.19", "lodash@^4.7.0":
   "integrity" "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="
   "resolved" "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   "version" "4.17.21"
@@ -5303,7 +5303,7 @@
     "kleur" "^3.0.3"
     "sisteransi" "^1.0.5"
 
-"prop-types@^15.7.2":
+"prop-types@^15.6.2", "prop-types@^15.7.2":
   "integrity" "sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   "version" "15.8.1"
@@ -5373,6 +5373,13 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   "version" "16.13.1"
 
+"react-native-awesome-card@^1.0.9":
+  "integrity" "sha512-c3DtoELWPpgki7KYs90ivovyVybeWkrB8tifFoG1+0coRG+qXMKuUOoOPpwaVxMpFcIN1IOT8B/1bwIe7FAKHg=="
+  "resolved" "https://registry.npmjs.org/react-native-awesome-card/-/react-native-awesome-card-1.0.9.tgz"
+  "version" "1.0.9"
+  dependencies:
+    "prop-types" "^15.7.2"
+
 "react-native-codegen@^0.0.8":
   "integrity" "sha512-k/944+0XD+8l7zDaiKfYabyEKmAmyZgS1mj+4LcSRPyHnrjgCHKrh/Y6jM6kucQ6xU1+1uyMmF/dSkikxK8i+Q=="
   "resolved" "https://registry.npmjs.org/react-native-codegen/-/react-native-codegen-0.0.8.tgz"
@@ -5381,6 +5388,19 @@
     "flow-parser" "^0.121.0"
     "jscodeshift" "^0.11.0"
     "nullthrows" "^1.1.1"
+
+"react-native-debounce-input@^1.0.5":
+  "integrity" "sha512-X2GUECrjre//F7ePXWy92Q6NhxaorI+rTVFeoL34ARzOcyMcoPp7mol8GmwR3O8G/PMLn1jfqJOH1ryU8vldDQ=="
+  "resolved" "https://registry.npmjs.org/react-native-debounce-input/-/react-native-debounce-input-1.0.5.tgz"
+  "version" "1.0.5"
+
+"react-native-image-avatars@^1.1.6":
+  "integrity" "sha512-rSZmGUIuvYtzSYz+pZehdn7RqP4S3b7KEPknUn3oZGRoEq7sN2ms6FciqQbvW5d2yaRbjPUJn2777DQsHGRyTQ=="
+  "resolved" "https://registry.npmjs.org/react-native-image-avatars/-/react-native-image-avatars-1.1.6.tgz"
+  "version" "1.1.6"
+  dependencies:
+    "lodash" "^4.17.11"
+    "prop-types" "^15.6.2"
 
 "react-native-safe-area-context@^3.3.2", "react-native-safe-area-context@>= 3.0.0":
   "integrity" "sha512-yOwiiPJ1rk+/nfK13eafbpW6sKW0jOnsRem2C1LPJjM3tfTof6hlvV5eWHATye3XOpu2cJ7N+HdkUvUDGwFD2Q=="

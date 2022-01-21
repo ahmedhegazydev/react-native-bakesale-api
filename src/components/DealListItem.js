@@ -21,14 +21,15 @@ const DealsListItem = props => {
 
   const onItemClick = () => {
     //console.log('on item clicking');
-    props.onDealItemClick();
+    // console.log('on item clicking', deal.title);
+    props.onDealItemClick({deal});
   };
 
   return (
     <TouchableOpacity onPress={onItemClick}>
       <View style={styles.border}>
         <Image
-          style={{width: windowWidth, height: 300}}
+          style={{width: windowWidth, height: 300, marginRight: 20}}
           source={{
             uri: deal.media[0],
           }}
@@ -47,7 +48,7 @@ const DealsListItem = props => {
           <Text style={{padding: 0, fontWeight: '200'}}>{deal.cause.name}</Text>
           <Text style={{padding: 0, fontWeight: '200'}}>
             {/* {getPriceDisplay(deal.price)} */}
-            {deal.price}
+            {deal.price / 100}$
           </Text>
         </View>
       </View>
