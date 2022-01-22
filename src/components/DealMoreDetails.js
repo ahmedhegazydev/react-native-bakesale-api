@@ -12,9 +12,13 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import {Avatar} from 'react-native-image-avatars';
+import {SliderBox} from 'react-native-image-slider-box';
 
 // import {CardView} from 'react-native-cardview';
 import {AwesomeCard} from 'react-native-awesome-card';
+
+// import Swiper from 'react-native-swipe-image';
+// import Swiper from 'react-native-swiper';
 
 const apiHost = 'https://www.breakingbadapi.com/';
 // const apiHost = 'https://bakesaleforgood.com/';
@@ -50,6 +54,23 @@ const DealDetails = ({route, navigation}) => {
       .finally(() => setLoading(false));
   }, []);
 
+  state = {
+    images: [
+      {
+        url: 'https://images.pexels.com/photos/1382734/pexels-photo-1382734.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+        name: 'shakira',
+      },
+      {
+        url: 'https://images.pexels.com/photos/9413/animal-cute-kitten-cat.jpg?cs=srgb&dl=adorable-animal-cat-9413.jpg&fm=jpg',
+        name: 'cat',
+      },
+      {
+        url: 'https://i.pinimg.com/236x/c6/6b/11/c66b111bf4df809e87a1208f75d2788b.jpg',
+        name: 'baby',
+      },
+    ],
+  };
+
   return (
     <View style={{padding: 10}}>
       <ScrollView
@@ -57,12 +78,34 @@ const DealDetails = ({route, navigation}) => {
         showsHorizontalScrollIndicator={false}
         style={{}}>
         <View style={styles.border}>
-          <Image
+          {/* <Image
             style={{width: windowWidth - 22, height: 300}}
             source={{
               // uri: deal.media[0],
               uri: deal.img,
             }}
+          /> */}
+          {/* 
+          <Swiper
+            style={{flex: 1, width: windowWidth - 22, height: 300}}
+            images={state.images}
+            // swipeBottom={(e) => this.bottom(e)}
+            // swipeTop={(e) => this.top(e)}
+            // imageHeight={number}
+            // textSize={number}
+            // textBold={boolean}
+            // textColor={String}
+            // textUnderline={boolean}
+          /> */}
+
+          <SliderBox
+            images={this.state.images}
+            onCurrentImagePressed={index =>
+              console.warn(`image ${index} pressed`)
+            }
+            currentImageEmitter={index =>
+              console.warn(`current pos is: ${index}`)
+            }
           />
 
           <Text

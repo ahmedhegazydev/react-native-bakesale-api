@@ -18,8 +18,12 @@
     "react-native-awesome-card": "^1.0.9",
     "react-native-debounce-input": "^1.0.5",
     "react-native-image-avatars": "^1.1.6",
+    "react-native-image-slider-box": "^1.1.14",
     "react-native-safe-area-context": "^3.3.2",
-    "react-native-screens": "^3.10.2"
+    "react-native-screens": "^3.10.2",
+    "react-native-swipe-image": "^1.1.0",
+    "react-native-swiper": "^1.6.0-rc.3",
+    "react-native-vega-scroll-list": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

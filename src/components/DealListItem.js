@@ -9,8 +9,11 @@ import {
   View,
   Image,
   Dimensions,
+  Animated,
   TouchableOpacity,
+  PanResponder,
 } from 'react-native';
+import Swiper from 'react-native-swipe-image';
 
 // import getPriceDisplay from './utils';
 
@@ -26,41 +29,51 @@ const DealsListItem = props => {
   };
 
   return (
-    <TouchableOpacity onPress={onItemClick}>
-      <View style={styles.border}>
-        <Image
-          style={{width: windowWidth, height: 300, marginRight: 20}}
-          source={{
-            // uri: deal.media[0],
-            uri: deal.img,
-          }}
-        />
+    <Animated.View
+    // transform={[props.scale]}
+    >
+      <TouchableOpacity onPress={onItemClick}>
+        <View style={styles.border}>
+          <Image
+            style={{
+              width: windowWidth - 24.5,
+              height: 300,
+              // marginRight: 20,
+              borderRadius: 13,
+              overflow: 'hidden',
+            }}
+            source={{
+              // uri: deal.media[0],
+              uri: deal.img,
+            }}
+          />
 
-        <Text style={{padding: 8, fontWeight: '600'}}>
-          {/* {deal.title} */}
-          {deal.category}
-        </Text>
-        <View
-          style={{
-            flex: 1,
-            flexDirection: 'row',
-            paddingLeft: 10,
-            paddingRight: 10,
-            paddingBottom: 10,
-            justifyContent: 'space-between',
-          }}>
-          <Text style={{padding: 0, fontWeight: '200'}}>
-            {/* {deal.cause.name} */}
-            {deal.name}
+          <Text style={{padding: 8, fontWeight: '600'}}>
+            {/* {deal.title} */}
+            {deal.category}
           </Text>
-          <Text style={{padding: 0, fontWeight: '200'}}>
-            {/* {getPriceDisplay(deal.price)} */}
-            {/* {deal.price / 100}$ */}
-            {deal.birthday}
-          </Text>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              paddingLeft: 10,
+              paddingRight: 10,
+              paddingBottom: 10,
+              justifyContent: 'space-between',
+            }}>
+            <Text style={{padding: 0, fontWeight: '200'}}>
+              {/* {deal.cause.name} */}
+              {deal.name}
+            </Text>
+            <Text style={{padding: 0, fontWeight: '200'}}>
+              {/* {getPriceDisplay(deal.price)} */}
+              {/* {deal.price / 100}$ */}
+              {deal.birthday}
+            </Text>
+          </View>
         </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </Animated.View>
   );
 };
 
@@ -79,7 +92,13 @@ const styles = StyleSheet.create({
     // borderBottomWidth: 2,
     // borderTopWidth: 2,
     borderWidth: 2,
-    marginBottom: 7,
+    marginBottom: 20,
+    borderRadius: 15,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 1},
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
   },
 });
 

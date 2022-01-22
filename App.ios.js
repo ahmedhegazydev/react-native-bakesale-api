@@ -5,7 +5,7 @@
  * @format
  * @flow strict-local
  */
-import React, {useEffect, useState, createRef} from 'react';
+import React, {useEffect, useState, createRef, useRef} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -16,8 +16,10 @@ import {
   View,
   FlatList,
   ActivityIndicator,
+  Animated,
 } from 'react-native';
 import DelayInput from 'react-native-debounce-input';
+// import VegaScrollList from 'react-native-vega-scroll-list';
 
 import {
   Colors,
@@ -34,7 +36,7 @@ import DealsList from './src/components/DealList';
 import DealsListItem from './src/components/DealListItem';
 import NetInfo from '@react-native-community/netinfo';
 import DealDetails from './src/components/DealMoreDetails';
-import SearchBarInput from './src/components/SearchBarInput';
+// import SearchBarInput from './src/components/SearchBarInput';
 // import {NetInfo} from 'react-native';
 
 // class App extends React.Component {
@@ -52,10 +54,12 @@ const apiHost = 'https://www.breakingbadapi.com/';
 // const apiHost = 'https://bakesaleforgood.com/';
 
 // const endPointList = "api/deals"
-const endPointList = 'api/characters';
+const endPointList = 'api/characters?limit=10&offset=10';
 
-const endPontSearch = endPointList + '?searchTerm';
-const endPointSearch = endPointList + '?name=';
+const endPontSearch = endPointList + 'searchTerm';
+const endPointSearch = endPointList + '&name=';
+
+const ITEM_SIZE = 10;
 
 const AllDealsScreen = ({navigation}) => {
   const [isLoading, setLoading] = useState(true);
@@ -64,7 +68,7 @@ const AllDealsScreen = ({navigation}) => {
   const [searchTerm, onChangeText] = useState(null);
   const [dataSearch, setDataSearch] = useState([]);
 
-  const [value, setValue] = useState('Have');
+  const [value, setValue] = useState('');
   const inputRef = createRef();
 
   clearSearch = () => {
@@ -103,6 +107,8 @@ const AllDealsScreen = ({navigation}) => {
 
   const dealsToDisplay = dataSearch.length > 0 ? dataSearch : data;
 
+  const scrollY = useRef(new Animated.Value(0)).current;
+
   return (
     <View
       style={{flex: 1, marginTop: 15, padding: 10, flexDirection: 'column'}}>
@@ -111,6 +117,7 @@ const AllDealsScreen = ({navigation}) => {
         value={value}
         minLength={3}
         inputRef={inputRef}
+        placeholder="Search All Deals"
         onChangeText={text => {
           setValue(text);
           console.log('kkkkkkkk');
@@ -122,7 +129,14 @@ const AllDealsScreen = ({navigation}) => {
             .finally(() => setLoading(false));
         }}
         delayTimeout={500}
-        style={{margin: 10, height: 40, borderColor: 'gray', borderWidth: 1}}
+        style={{
+          marginTop: 24,
+          marginBottom: 10,
+          height: 40,
+          borderColor: 'gray',
+          borderWidth: 1,
+          padding: 5,
+        }}
       />
 
       {isLoading ? (
@@ -147,19 +161,43 @@ const AllDealsScreen = ({navigation}) => {
         }}>
         Articles:
       </Text> */}
-          <FlatList
+          <Animated.FlatList
+            // pagingEnabled={true}
+            legacyImplementation={false}
+            contentContainerStyle={{
+              padding: 0,
+            }}
+            onScroll={Animated.event(
+              [{nativeEvent: {contentOffset: {y: scrollY}}}],
+              {useNativeDriver: true},
+            )}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
             // data={data}
             data={dealsToDisplay}
             keyExtractor={({id}, index) => id}
-            renderItem={({item}) => (
-              // <Text>{item.title}</Text>
-              <DealsListItem
-                onDealItemClick={onDealItemClick}
-                dealItem={item}
-              />
-            )}
+            renderItem={({item, index}) => {
+              const inputRange = [
+                -1,
+                0,
+                ITEM_SIZE * index,
+                ITEM_SIZE * (index + 2),
+              ];
+
+              const scale = scrollY.interpolate({
+                inputRange,
+                outputRange: [1, 1, 1, 0],
+              });
+
+              return (
+                <DealsListItem
+                  onDealItemClick={onDealItemClick}
+                  dealItem={item}
+                  scale={scale}
+                  key={index}
+                />
+              );
+            }}
           />
         </View>
       )}
