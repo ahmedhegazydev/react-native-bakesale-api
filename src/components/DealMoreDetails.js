@@ -16,6 +16,15 @@ import {Avatar} from 'react-native-image-avatars';
 // import {CardView} from 'react-native-cardview';
 import {AwesomeCard} from 'react-native-awesome-card';
 
+const apiHost = 'https://www.breakingbadapi.com/';
+// const apiHost = 'https://bakesaleforgood.com/';
+
+// const endPointList = "api/deals"
+const endPointList = 'api/characters';
+
+const endPontSearch = endPointList + '?searchTerm';
+const endPointSearch = endPointList + '?name=';
+
 const DealDetails = ({route, navigation}) => {
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
@@ -27,7 +36,14 @@ const DealDetails = ({route, navigation}) => {
     // const json = ajax.fetchInitialDeals();
     // console.log(json);
     // setData(json);
-    fetch('https://bakesaleforgood.com/api/deals/' + deal.key)
+
+    // fetch(apiHost + endPointList + '/' + deal.key)
+    //   .then(response => response.json())
+    //   .then(json => setData(json))
+    //   .catch(error => console.error(error))
+    //   .finally(() => setLoading(false));
+
+    fetch(apiHost + endPointList + '/' + deal.char_id)
       .then(response => response.json())
       .then(json => setData(json))
       .catch(error => console.error(error))
@@ -44,13 +60,15 @@ const DealDetails = ({route, navigation}) => {
           <Image
             style={{width: windowWidth - 22, height: 300}}
             source={{
-              uri: deal.media[0],
+              // uri: deal.media[0],
+              uri: deal.img,
             }}
           />
 
           <Text
             style={{padding: 8, fontWeight: '600', backgroundColor: 'brown'}}>
-            {deal.title}
+            {/* {deal.title} */}
+            {deal.category}
           </Text>
           <View
             style={{
@@ -78,10 +96,12 @@ const DealDetails = ({route, navigation}) => {
                   alignItems: 'center',
                 }}>
                 <Text style={{padding: 0, fontWeight: '500', fontSize: 15}}>
-                  {deal.price / 100}$
+                  {/* {deal.price / 100}$ */}
+                  {deal.birthday}
                 </Text>
                 <Text style={{padding: 0, fontWeight: '300', fontSize: 15}}>
-                  {deal.cause.name}
+                  {/* {deal.cause.name} */}
+                  {deal.name}
                 </Text>
               </View>
 
@@ -99,13 +119,15 @@ const DealDetails = ({route, navigation}) => {
                 ) : (
                   <View>
                     <Avatar
-                      imageUrl={data.user.avatar}
+                      // imageUrl={data.user.avatar}
+                      imageUrl={deal.img}
                       size="small"
                       borderColor="#f2f2f2"
                       shadow
                     />
                     <Text style={{padding: 0, fontWeight: '300', fontSize: 15}}>
-                      {data.user.name}
+                      {/* {data.user.name} */}
+                      {/* {data.occupation.length > 0 ? data.occupation[0] : ''} */}
                     </Text>
                   </View>
                 )}
@@ -117,7 +139,10 @@ const DealDetails = ({route, navigation}) => {
             </CardView> */}
             <AwesomeCard>
               <View>
-                <Text>{data.description}</Text>
+                <Text>
+                  {/* {data.description} */}
+                  {deal.nickname}
+                </Text>
               </View>
             </AwesomeCard>
           </View>

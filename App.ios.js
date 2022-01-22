@@ -54,6 +54,9 @@ const apiHost = 'https://www.breakingbadapi.com/';
 // const endPointList = "api/deals"
 const endPointList = 'api/characters';
 
+const endPontSearch = endPointList + '?searchTerm';
+const endPointSearch = endPointList + '?name=';
+
 const AllDealsScreen = ({navigation}) => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
@@ -110,7 +113,13 @@ const AllDealsScreen = ({navigation}) => {
         inputRef={inputRef}
         onChangeText={text => {
           setValue(text);
-          // console.log('kkkkkkkk');
+          console.log('kkkkkkkk');
+
+          fetch(apiHost + endPointSearch + text)
+            .then(response => response.json())
+            .then(json => setDataSearch(json))
+            .catch(error => console.error(error))
+            .finally(() => setLoading(false));
         }}
         delayTimeout={500}
         style={{margin: 10, height: 40, borderColor: 'gray', borderWidth: 1}}
@@ -141,6 +150,7 @@ const AllDealsScreen = ({navigation}) => {
           <FlatList
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
+            // data={data}
             data={dealsToDisplay}
             keyExtractor={({id}, index) => id}
             renderItem={({item}) => (
