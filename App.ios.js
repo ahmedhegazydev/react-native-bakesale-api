@@ -5,7 +5,7 @@
  * @format
  * @flow strict-local
  */
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, createRef} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -17,6 +17,7 @@ import {
   FlatList,
   ActivityIndicator,
 } from 'react-native';
+import DelayInput from 'react-native-debounce-input';
 
 import {
   Colors,
@@ -46,6 +47,13 @@ import SearchBarInput from './src/components/SearchBarInput';
 // }
 
 const Stack = createNativeStackNavigator();
+
+const apiHost = 'https://www.breakingbadapi.com/';
+// const apiHost = 'https://bakesaleforgood.com/';
+
+// const endPointList = "api/deals"
+const endPointList = 'api/characters';
+
 const AllDealsScreen = ({navigation}) => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
@@ -53,25 +61,34 @@ const AllDealsScreen = ({navigation}) => {
   const [searchTerm, onChangeText] = useState(null);
   const [dataSearch, setDataSearch] = useState([]);
 
+  const [value, setValue] = useState('Have');
+  const inputRef = createRef();
+
+  clearSearch = () => {
+    dataSearch = [];
+  };
+
   useEffect(() => {
     // const json = ajax.fetchInitialDeals();
     // console.log(json);
     // setData(json);
 
-    fetch('https://bakesaleforgood.com/api/deals')
+    fetch(apiHost + endPointList)
       .then(response => response.json())
       .then(json => setData(json))
       .catch(error => console.error(error))
       .finally(() => setLoading(false));
   }, []);
 
-  // useEffect(() => {
-  //   fetch('https://bakesaleforgood.com/api/deals?searchTerm' + 'Yoga')
-  //     .then(response => response.json())
-  //     .then(json => setDataSearch(json))
-  //     .catch(error => console.error(error))
-  //     .finally(() => setLoading(false));
-  // }, []);
+  useEffect(() => {
+    // if (searchTerm) {
+    //   fetch(apiHost + 'api/deals?searchTerm' + searchTerm)
+    //     .then(response => response.json())
+    //     .then(json => setDataSearch(json))
+    //     .catch(error => console.error(error))
+    //     .finally(() => setLoading(false));
+    // }
+  }, []);
 
   const onDealItemClick = ({deal}) => {
     // console.log('on item clicking');
@@ -81,10 +98,23 @@ const AllDealsScreen = ({navigation}) => {
     navigation.push('Details', deal);
   };
 
+  const dealsToDisplay = dataSearch.length > 0 ? dataSearch : data;
+
   return (
     <View
       style={{flex: 1, marginTop: 15, padding: 10, flexDirection: 'column'}}>
-      {/* <SearchBarInput /> */}
+      {/* <SearchBarInput searchDeals={dataSearch} /> */}
+      <DelayInput
+        value={value}
+        minLength={3}
+        inputRef={inputRef}
+        onChangeText={text => {
+          setValue(text);
+          // console.log('kkkkkkkk');
+        }}
+        delayTimeout={500}
+        style={{margin: 10, height: 40, borderColor: 'gray', borderWidth: 1}}
+      />
 
       {isLoading ? (
         // <Text>Loading...</Text>
@@ -96,9 +126,9 @@ const AllDealsScreen = ({navigation}) => {
             flexDirection: 'column',
             justifyContent: 'space-between',
           }}>
-          <Text style={{fontSize: 18, color: 'green', textAlign: 'center'}}>
+          {/* <Text style={{fontSize: 18, color: 'green', textAlign: 'center'}}>
             {data.title}
-          </Text>
+          </Text> */}
           {/* <Text
         style={{
           fontSize: 14,
@@ -111,7 +141,7 @@ const AllDealsScreen = ({navigation}) => {
           <FlatList
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
-            data={data}
+            data={dealsToDisplay}
             keyExtractor={({id}, index) => id}
             renderItem={({item}) => (
               // <Text>{item.title}</Text>

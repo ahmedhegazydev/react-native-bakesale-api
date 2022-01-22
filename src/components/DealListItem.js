@@ -31,11 +31,15 @@ const DealsListItem = props => {
         <Image
           style={{width: windowWidth, height: 300, marginRight: 20}}
           source={{
-            uri: deal.media[0],
+            // uri: deal.media[0],
+            uri: deal.img,
           }}
         />
 
-        <Text style={{padding: 8, fontWeight: '600'}}>{deal.title}</Text>
+        <Text style={{padding: 8, fontWeight: '600'}}>
+          {/* {deal.title} */}
+          {deal.category}
+        </Text>
         <View
           style={{
             flex: 1,
@@ -45,10 +49,14 @@ const DealsListItem = props => {
             paddingBottom: 10,
             justifyContent: 'space-between',
           }}>
-          <Text style={{padding: 0, fontWeight: '200'}}>{deal.cause.name}</Text>
+          <Text style={{padding: 0, fontWeight: '200'}}>
+            {/* {deal.cause.name} */}
+            {deal.name}
+          </Text>
           <Text style={{padding: 0, fontWeight: '200'}}>
             {/* {getPriceDisplay(deal.price)} */}
-            {deal.price / 100}$
+            {/* {deal.price / 100}$ */}
+            {deal.birthday}
           </Text>
         </View>
       </View>
