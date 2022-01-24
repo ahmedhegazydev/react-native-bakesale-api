@@ -17,6 +17,8 @@ import {
   FlatList,
   ActivityIndicator,
   Animated,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import DelayInput from 'react-native-debounce-input';
 // import VegaScrollList from 'react-native-vega-scroll-list';
@@ -124,7 +126,9 @@ const AllDealsScreen = ({navigation}) => {
 
           fetch(apiHost + endPointSearch + text)
             .then(response => response.json())
-            .then(json => setDataSearch(json))
+            .then(json => {
+              setDataSearch(json);
+            })
             .catch(error => console.error(error))
             .finally(() => setLoading(false));
         }}
