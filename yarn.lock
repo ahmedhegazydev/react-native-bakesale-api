@@ -6500,6 +6500,11 @@
   "resolved" "https://registry.npmjs.org/react-native-debounce-input/-/react-native-debounce-input-1.0.5.tgz"
   "version" "1.0.5"
 
+"react-native-dismiss-keyboard@^1.0.0":
+  "integrity" "sha1-MohiQrPyMX4SHzrrmwpYXiuHm0k="
+  "resolved" "https://registry.npmjs.org/react-native-dismiss-keyboard/-/react-native-dismiss-keyboard-1.0.0.tgz"
+  "version" "1.0.0"
+
 "react-native-image-avatars@^1.1.6":
   "integrity" "sha512-rSZmGUIuvYtzSYz+pZehdn7RqP4S3b7KEPknUn3oZGRoEq7sN2ms6FciqQbvW5d2yaRbjPUJn2777DQsHGRyTQ=="
   "resolved" "https://registry.npmjs.org/react-native-image-avatars/-/react-native-image-avatars-1.1.6.tgz"

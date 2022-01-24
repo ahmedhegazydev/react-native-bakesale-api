@@ -17,6 +17,7 @@
     "react-native": "0.67.0",
     "react-native-awesome-card": "^1.0.9",
     "react-native-debounce-input": "^1.0.5",
+    "react-native-dismiss-keyboard": "^1.0.0",
     "react-native-image-avatars": "^1.1.6",
     "react-native-image-slider-box": "^1.1.14",
     "react-native-safe-area-context": "^3.3.2",

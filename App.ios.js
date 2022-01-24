@@ -22,6 +22,7 @@ import {
 } from 'react-native';
 import DelayInput from 'react-native-debounce-input';
 // import VegaScrollList from 'react-native-vega-scroll-list';
+import dismissKeyboard from 'react-native-dismiss-keyboard';
 
 import {
   Colors,
@@ -121,14 +122,13 @@ const AllDealsScreen = ({navigation}) => {
         inputRef={inputRef}
         placeholder="Search All Deals"
         onChangeText={text => {
-          setValue(text);
+          // setValue(text);
           console.log('kkkkkkkk');
+          // dismissKeyboard();
 
           fetch(apiHost + endPointSearch + text)
             .then(response => response.json())
-            .then(json => {
-              setDataSearch(json);
-            })
+            .then(json => setDataSearch(json))
             .catch(error => console.error(error))
             .finally(() => setLoading(false));
         }}
