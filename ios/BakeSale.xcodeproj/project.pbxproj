@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0042EBB2279F66C700ED6416 /* splash-screen.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 0042EBB1279F66C700ED6416 /* splash-screen.jpeg */; };
+		0042EBB6279F6FBC00ED6416 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0042EBB5279F6FBC00ED6416 /* BootSplash.storyboard */; };
+		0042EBB8279F830500ED6416 /* libreact-native-splash-screen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0042EBB7279F830500ED6416 /* libreact-native-splash-screen.a */; };
 		00E356F31AD99517003FC87E /* BakeSaleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* BakeSaleTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -27,6 +30,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0042EBB1279F66C700ED6416 /* splash-screen.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "splash-screen.jpeg"; sourceTree = "<group>"; };
+		0042EBB3279F6AF000ED6416 /* libreact-native-splash-screen.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-splash-screen.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0042EBB5279F6FBC00ED6416 /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BootSplash.storyboard; sourceTree = "<group>"; };
+		0042EBB7279F830500ED6416 /* libreact-native-splash-screen.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-splash-screen.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356EE1AD99517003FC87E /* BakeSaleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BakeSaleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* BakeSaleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BakeSaleTests.m; sourceTree = "<group>"; };
@@ -59,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0042EBB8279F830500ED6416 /* libreact-native-splash-screen.a in Frameworks */,
 				27FCB0EC9926EA8DF61EC86D /* libPods-BakeSale.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -86,6 +94,7 @@
 		13B07FAE1A68108700A75B9A /* BakeSale */ = {
 			isa = PBXGroup;
 			children = (
+				0042EBB5279F6FBC00ED6416 /* BootSplash.storyboard */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -110,6 +119,8 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0042EBB7279F830500ED6416 /* libreact-native-splash-screen.a */,
+				0042EBB3279F6AF000ED6416 /* libreact-native-splash-screen.a */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				9BEC73943F1AB8F7E4631395 /* libPods-BakeSale.a */,
 				90AFFF9B8FA25C6592CE4FCA /* libPods-BakeSale-BakeSaleTests.a */,
@@ -120,6 +131,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				0042EBB1279F66C700ED6416 /* splash-screen.jpeg */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -244,6 +256,8 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				0042EBB2279F66C700ED6416 /* splash-screen.jpeg in Resources */,
+				0042EBB6279F6FBC00ED6416 /* BootSplash.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

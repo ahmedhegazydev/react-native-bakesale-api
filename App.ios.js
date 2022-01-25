@@ -23,6 +23,7 @@ import {
 import DelayInput from 'react-native-debounce-input';
 // import VegaScrollList from 'react-native-vega-scroll-list';
 import dismissKeyboard from 'react-native-dismiss-keyboard';
+import RNBootSplash from 'react-native-bootsplash';
 
 import {
   Colors,
@@ -238,6 +239,11 @@ const App = () => {
     //   console.log('Connection type', state.type);
     //   console.log('Is connected?', state.isConnected);
     // });
+
+    init().finally(async () => {
+      await RNBootSplash.hide({fade: true});
+      console.log('Bootsplash has been hidden successfully');
+    });
   }, []);
 
   return (
